@@ -16,6 +16,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Install Flatpak Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder
+
       - name: Compute RPM SHA256 Hash
         run: |
           RPM_URL="https://linux.irealpro.com/irealpro-latest.x86_64.rpm"
