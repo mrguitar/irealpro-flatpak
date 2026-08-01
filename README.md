@@ -1,6 +1,7 @@
 # iReal Pro Flatpak
 
 Unofficial Flatpak packaging and automated build workflow for [iReal Pro](https://irealpro.com/) on Linux.
+![iReal Pro](irealpro.png)
 
 ## 🚀 Quick Install
 

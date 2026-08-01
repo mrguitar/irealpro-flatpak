@@ -32,7 +32,11 @@ modules:
         fi
 
       # Install MetaInfo file
-      - install -Dm644 com.irealpro.irealpro.metainfo.xml /app/share/metainfo/com.irealpro.irealpro.metainfo.xml
+      - |
+        METAINFO_FILE=$(find . -name "*metainfo.xml" -o -name "*appdata.xml" | head -n 1)
+        if [ -n "$METAINFO_FILE" ]; then
+          install -Dm644 "$METAINFO_FILE" /app/share/metainfo/com.irealpro.irealpro.metainfo.xml
+        fi
 
     sources:
       - type: archive
