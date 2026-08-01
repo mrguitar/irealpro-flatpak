@@ -18,10 +18,9 @@ modules:
       - cp -r . /app/
 
       # 2. Install Metadata & Icons from your repo into /app/share
-      - install -Dm644 com.irealpro.desktop /app/share/applications/com.irealpro.desktop
+      - install -Dm644 usr/share/applications/irealpro.desktop /app/share/applications/com.irealpro.desktop
       - install -Dm644 com.irealpro.metainfo.xml /app/share/metainfo/com.irealpro.metainfo.xml
-      # Copy, rename, and install the 512x512 PNG icon from the RPM
-      - install -Dm644 irealpro.png /app/share/icons/hicolor/512x512/apps/com.irealpro.png
+      - install -Dm644 usr/share/icons/hicolor/512x512/apps/irealpro.png /app/share/icons/hicolor/512x512/apps/com.irealpro.irealpro.png
 
     sources:
       - type: archive
