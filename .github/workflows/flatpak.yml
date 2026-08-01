@@ -1,0 +1,43 @@
+name: Build iReal Pro Flatpak
+
+on:
+  schedule:
+    # Run automatically every week at midnight on Sunday to check for updates
+    - cron: '0 0 * * 0'
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: # Allows manual trigger from the GitHub Actions UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flatpak/flatpak-builder-lint:latest
+      options: --privileged
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Compute RPM SHA256 Hash
+        run: |
+          RPM_URL="https://linux.irealpro.com/irealpro-latest.x86_64.rpm"
+          echo "Fetching latest SHA256..."
+          CALCULATED_HASH=$(curl -sL "$RPM_URL" | sha256sum | awk '{print $1}')
+          echo "Calculated Hash: $CALCULATED_HASH"
+          
+          # Inject the calculated hash into irealpro.yml
+          sed -i "s/PLACEHOLDER_SHA256/$CALCULATED_HASH/g" irealpro.yml
+
+      - name: Build Flatpak Bundle
+        uses: flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: com.irealpro.irealpro.flatpak
+          manifest-path: irealpro.yml
+          cache-key: flatpak-builder-${{ github.sha }}
+
+      - name: Upload Flatpak Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: irealpro-flatpak
+          path: com.irealpro.irealpro.flatpak
