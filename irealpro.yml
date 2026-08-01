@@ -1,4 +1,4 @@
-app-id: com.irealpro
+app-id: com.irealpro.irealpro
 runtime: org.freedesktop.Platform
 runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
@@ -14,28 +14,25 @@ modules:
   - name: irealpro
     buildsystem: simple
     build-commands:
-      # 1. Debug step: Print directory contents so you can inspect paths if needed
-      - ls -la
-
-      # 2. Copy extracted RPM contents to /app
+      # Copy extracted RPM contents to /app
       - cp -r . /app/
 
-      # 3. Locate and install desktop file dynamically from extracted RPM (or git repo)
+      # Install desktop file (dynamic find handles both repo or RPM sources)
       - |
         DESKTOP_FILE=$(find . -name "*.desktop" | head -n 1)
         if [ -n "$DESKTOP_FILE" ]; then
-          install -Dm644 "$DESKTOP_FILE" /app/share/applications/com.irealpro.desktop
+          install -Dm644 "$DESKTOP_FILE" /app/share/applications/com.irealpro.irealpro.desktop
         fi
 
-      # 4. Locate and install icon dynamically
+      # Install icon
       - |
-        ICON_FILE=$(find . -name "irealpro.png" -o -name "com.irealpro.png" | head -n 1)
+        ICON_FILE=$(find . -name "irealpro.png" -o -name "com.irealpro.png" -o -name "com.irealpro.irealpro.png" | head -n 1)
         if [ -n "$ICON_FILE" ]; then
-          install -Dm644 "$ICON_FILE" /app/share/icons/hicolor/512x512/apps/com.irealpro.png
+          install -Dm644 "$ICON_FILE" /app/share/icons/hicolor/512x512/apps/com.irealpro.irealpro.png
         fi
 
-      # 5. Install your repository's AppStream MetaInfo file
-      - install -Dm644 com.irealpro.metainfo.xml /app/share/metainfo/com.irealpro.metainfo.xml
+      # Install MetaInfo file
+      - install -Dm644 com.irealpro.irealpro.metainfo.xml /app/share/metainfo/com.irealpro.irealpro.metainfo.xml
 
     sources:
       - type: archive
