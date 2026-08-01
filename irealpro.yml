@@ -26,6 +26,10 @@ modules:
       # 4. Install AppStream MetaInfo file from module sources
       - install -Dm644 com.irealpro.irealpro.metainfo.xml /app/share/metainfo/com.irealpro.irealpro.metainfo.xml
 
+      # 5. Create symlink for the main executable in /app/bin
+      - mkdir -p /app/bin
+      - ln -sf /app/opt/iRealPro/irealpro /app/bin/irealpro
+
     sources:
       - type: archive
         url: https://linux.irealpro.com/irealpro-latest.x86_64.rpm
