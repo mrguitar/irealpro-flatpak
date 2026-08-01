@@ -14,30 +14,34 @@ modules:
   - name: irealpro
     buildsystem: simple
     build-commands:
-      # Copy extracted RPM contents to /app
+      # 1. Copy extracted RPM payload to /app
       - cp -r . /app/
 
-      # Install desktop file (dynamic find handles both repo or RPM sources)
+      # 2. Locate and install Desktop file from git repo root
       - |
-        DESKTOP_FILE=$(find . -maxdepth 2 -name "com.irealpro.irealpro.desktop" | head -n 1)
+        DESKTOP_FILE=$(find .. /run/build -name "com.irealpro.irealpro.desktop" 2>/dev/null | head -n 1)
         if [ -n "$DESKTOP_FILE" ]; then
           install -Dm644 "$DESKTOP_FILE" /app/share/applications/com.irealpro.irealpro.desktop
         else
           echo "Error: com.irealpro.irealpro.desktop not found!" && exit 1
         fi
 
-      # Install icon
+      # 3. Locate and install Icon file from git repo root
       - |
-        ICON_FILE=$(find . -name "irealpro.png" -o -name "com.irealpro.png" -o -name "com.irealpro.irealpro.png" | head -n 1)
+        ICON_FILE=$(find .. /run/build -name "irealpro.png" -o -name "com.irealpro.irealpro.png" 2>/dev/null | head -n 1)
         if [ -n "$ICON_FILE" ]; then
           install -Dm644 "$ICON_FILE" /app/share/icons/hicolor/512x512/apps/com.irealpro.irealpro.png
+        else
+          echo "Error: icon PNG not found!" && exit 1
         fi
 
-      # Install MetaInfo file
+      # 4. Locate and install AppStream MetaInfo file from git repo root
       - |
-        METAINFO_FILE=$(find . -name "*metainfo.xml" -o -name "*appdata.xml" | head -n 1)
+        METAINFO_FILE=$(find .. /run/build -name "com.irealpro.irealpro.metainfo.xml" 2>/dev/null | head -n 1)
         if [ -n "$METAINFO_FILE" ]; then
           install -Dm644 "$METAINFO_FILE" /app/share/metainfo/com.irealpro.irealpro.metainfo.xml
+        else
+          echo "Error: com.irealpro.irealpro.metainfo.xml not found!" && exit 1
         fi
 
     sources:
