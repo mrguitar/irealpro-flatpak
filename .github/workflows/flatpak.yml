@@ -2,11 +2,10 @@ name: Build iReal Pro Flatpak
 
 on:
   schedule:
-    # Run automatically every week at midnight on Sunday to check for updates
     - cron: '0 0 * * 0'
   push:
     branches: [ main, master ]
-  workflow_dispatch: # Allows manual trigger from the GitHub Actions UI
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,7 +19,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y flatpak flatpak-builder
-          sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          # Add Flathub to user scope
+          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
       - name: Compute RPM SHA256 Hash
         run: |
@@ -29,7 +29,7 @@ jobs:
           CALCULATED_HASH=$(curl -sL "$RPM_URL" | sha256sum | awk '{print $1}')
           echo "Calculated Hash: $CALCULATED_HASH"
           
-          # Inject the calculated hash into irealpro.yml
+          # Inject calculated hash into irealpro.yml
           sed -i "s/PLACEHOLDER_SHA256/$CALCULATED_HASH/g" irealpro.yml
 
       - name: Build Flatpak Bundle
@@ -38,6 +38,8 @@ jobs:
           bundle: com.irealpro.irealpro.flatpak
           manifest-path: irealpro.yml
           cache-key: flatpak-builder-${{ github.sha }}
+          # Force user-level installation for runtime dependencies
+          flatpak-builder-args: --user
 
       - name: Upload Flatpak Artifact
         uses: actions/upload-artifact@v4
