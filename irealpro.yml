@@ -28,7 +28,7 @@ modules:
 
       # 5. Create symlink for the main executable in /app/bin
       - mkdir -p /app/bin
-      - ln -sf /app/opt/iRealPro/irealpro /app/bin/irealpro
+      - ln -sf /app/iRealPro/irealpro /app/bin/irealpro
 
     sources:
       - type: archive
