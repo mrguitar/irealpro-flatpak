@@ -16,10 +16,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install Flatpak Tools
+      - name: Install Flatpak Tools & Setup Flathub
         run: |
           sudo apt-get update
           sudo apt-get install -y flatpak flatpak-builder
+          sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
       - name: Compute RPM SHA256 Hash
         run: |
