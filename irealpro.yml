@@ -14,9 +14,8 @@ modules:
   - name: irealpro
     buildsystem: simple
     build-commands:
-      - cp -r ${FLATPAK_DEST}/files/* /app/
+      - cp -r . /app/
     sources:
-      - type: file
+      - type: rpm
         url: https://linux.irealpro.com/irealpro-latest.x86_64.rpm
-        # Note: YAML cannot execute shell commands. Replace with the actual hash.
-        sha256: REPLACE_WITH_ACTUAL_SHA256_HASH
+        sha256: PLACEHOLDER_SHA256
