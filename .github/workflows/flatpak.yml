@@ -15,12 +15,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install Flatpak Tools & Setup Flathub
+      - name: Install Flatpak Tools & Pre-fetch Runtimes
         run: |
           sudo apt-get update
           sudo apt-get install -y flatpak flatpak-builder
-          # Add Flathub to user scope
-          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          
+          # Add Flathub system-wide
+          sudo flatpak remote-add --system --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          
+          # Pre-install runtime dependencies system-wide so flatpak-builder doesn't hit Polkit permission errors
+          sudo flatpak install -y flathub org.freedesktop.Sdk//24.08 org.freedesktop.Platform//24.08
 
       - name: Compute RPM SHA256 Hash
         run: |
@@ -38,8 +42,6 @@ jobs:
           bundle: com.irealpro.irealpro.flatpak
           manifest-path: irealpro.yml
           cache-key: flatpak-builder-${{ github.sha }}
-          # Force user-level installation for runtime dependencies
-          flatpak-builder-args: --user
 
       - name: Upload Flatpak Artifact
         uses: actions/upload-artifact@v4
