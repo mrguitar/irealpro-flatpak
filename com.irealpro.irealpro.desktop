@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=iReal Pro
+Comment=Smart music backing tracks and chord charts
+Exec=irealpro
+Icon=com.irealpro.irealpro
+Type=Application
+Terminal=false
+Categories=AudioVideo;Audio;Music;
+Keywords=music;chords;backing;tracks;jam;

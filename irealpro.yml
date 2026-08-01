@@ -14,7 +14,15 @@ modules:
   - name: irealpro
     buildsystem: simple
     build-commands:
+      # 1. Copy extracted RPM contents to /app
       - cp -r . /app/
+
+      # 2. Install Metadata & Icons from your repo into /app/share
+      - install -Dm644 com.irealpro.irealpro.desktop /app/share/applications/com.irealpro.irealpro.desktop
+      - install -Dm644 com.irealpro.irealpro.metainfo.xml /app/share/metainfo/com.irealpro.irealpro.metainfo.xml
+      # Copy, rename, and install the 512x512 PNG icon from the RPM
+      - install -Dm644 irealpro.png /app/share/icons/hicolor/512x512/apps/com.irealpro.irealpro.png
+
     sources:
       - type: rpm
         url: https://linux.irealpro.com/irealpro-latest.x86_64.rpm
