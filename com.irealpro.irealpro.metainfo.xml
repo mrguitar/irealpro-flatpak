@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
   <id>com.irealpro.irealpro</id>
+  <launchable type="desktop-id">com.irealpro.irealpro.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LicenseRef-Proprietary</project_license>
   <name>iReal Pro</name>
@@ -22,7 +23,7 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/YOUR_USERNAME/irealpro-flatpak/main/screenshots/main.png</image>
+      <image>https://raw.githubusercontent.com/mrguitar/irealpro-flatpak/main/screenshots/main.png</image>
       <caption>Main chord chart and playback view</caption>
     </screenshot>
   </screenshots>
