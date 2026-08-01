@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
   <id>com.irealpro.irealpro</id>
-  <launchable type="desktop-id">com.irealpro.irealpro.desktop</launchable>
-  <metadata_license>CC0-1.0</metadata_license>
-  <project_license>LicenseRef-Proprietary</project_license>
   <name>iReal Pro</name>
   <summary>Practice tool and backing track generator for musicians</summary>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LicenseRef-Proprietary</project_license>
+
+  <launchable type="desktop-id">com.irealpro.irealpro.desktop</launchable>
+  <icon type="cached">com.irealpro.irealpro</icon>
 
   <description>
     <p>
@@ -13,8 +16,6 @@
       It also lets you create and collect chord charts of your favorite songs for reference.
     </p>
   </description>
-
-  <launchable type="desktop-id">com.irealpro.irealpro.desktop</launchable>
 
   <branding>
     <color type="primary" scheme_preference="light">#2b3e50</color>
