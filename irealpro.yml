@@ -1,0 +1,22 @@
+app-id: com.irealpro.irealpro
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+command: irealpro
+
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=pulseaudio
+  - --filesystem=host
+
+modules:
+  - name: irealpro
+    buildsystem: simple
+    build-commands:
+      - cp -r ${FLATPAK_DEST}/files/* /app/
+    sources:
+      - type: file
+        url: https://linux.irealpro.com/irealpro-latest.x86_64.rpm
+        # Note: YAML cannot execute shell commands. Replace with the actual hash.
+        sha256: REPLACE_WITH_ACTUAL_SHA256_HASH
