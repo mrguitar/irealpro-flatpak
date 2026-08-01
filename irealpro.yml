@@ -19,9 +19,11 @@ modules:
 
       # Install desktop file (dynamic find handles both repo or RPM sources)
       - |
-        DESKTOP_FILE=$(find . -name "*.desktop" | head -n 1)
+        DESKTOP_FILE=$(find . -maxdepth 2 -name "com.irealpro.irealpro.desktop" | head -n 1)
         if [ -n "$DESKTOP_FILE" ]; then
           install -Dm644 "$DESKTOP_FILE" /app/share/applications/com.irealpro.irealpro.desktop
+        else
+          echo "Error: com.irealpro.irealpro.desktop not found!" && exit 1
         fi
 
       # Install icon
