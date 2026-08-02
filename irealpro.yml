@@ -7,6 +7,8 @@ command: irealpro
 finish-args:
   - --share=ipc
   - --socket=x11
+  - --socket=wayland
+  - --socket=fallback-x11
   - --socket=pulseaudio
   - --filesystem=host
   - --share=network
@@ -34,7 +36,8 @@ modules:
       - |
         cat << 'EOF' > /app/bin/irealpro
         #!/bin/sh
-        exec /app/iRealPro/irealpro --no-sandbox "$@"
+        # Automatically select native Wayland if available, falling back to X11 seamlessly
+        exec /app/iRealPro/irealpro --no-sandbox --ozone-platform-hint=auto "$@"
         EOF
       - chmod +x /app/bin/irealpro
 
