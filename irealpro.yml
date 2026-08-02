@@ -9,6 +9,9 @@ finish-args:
   - --socket=x11
   - --socket=pulseaudio
   - --filesystem=host
+  - --share=network
+  - --device=dri
+  - --env=ELECTRON_TRASH=gio
 
 modules:
   - name: irealpro
